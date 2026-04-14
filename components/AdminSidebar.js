@@ -29,6 +29,12 @@ export default function AdminSidebar() {
         >
           Comments
         </Link>
+        <Link
+          href="/admin/likes"
+          className="block px-3 py-2 text-sm rounded hover:bg-gray-200"
+        >
+          Likes
+        </Link>
         <hr className="my-3" />
         <Link
           href="/"

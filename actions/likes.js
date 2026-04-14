@@ -82,3 +82,36 @@ export async function getLikeCount(postId) {
     return 0
   }
 }
+
+export async function getAllLikes() {
+  const session = await auth()
+
+  if (!session?.user || session.user.role !== "ADMIN") {
+    throw new Error("Not authorized")
+  }
+
+  try {
+    const likes = await prisma.like.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        user: {
+          include: {
+            profile: true,
+          },
+        },
+        post: {
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+          },
+        },
+      },
+    })
+
+    return likes
+  } catch (error) {
+    console.error("Get all likes error:", error)
+    return []
+  }
+}

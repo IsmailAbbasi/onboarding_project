@@ -128,30 +128,64 @@ export async function getPost(slug) {
   }
 }
 
-export async function getPosts() {
+// Helper to get all post slugs for static generation
+export async function getAllPostSlugs() {
   try {
     const posts = await prisma.post.findMany({
       where: { published: true },
-      orderBy: { createdAt: "desc" },
-      include: {
-        author: {
-          include: {
-            profile: true,
-          },
-        },
-        _count: {
-          select: {
-            likes: true,
-            comments: true,
-          },
-        },
-      },
+      select: { slug: true },
     })
 
-    return posts
+    return posts.map((post) => post.slug)
+  } catch (error) {
+    console.error("Get post slugs error:", error)
+    return []
+  }
+}
+
+export async function getPosts(page = 1, limit = 9) {
+  try {
+    const skip = (page - 1) * limit
+
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        where: { published: true },
+        orderBy: { createdAt: "desc" },
+        take: limit,
+        skip,
+        include: {
+          author: {
+            include: {
+              profile: true,
+            },
+          },
+          _count: {
+            select: {
+              likes: true,
+              comments: true,
+            },
+          },
+        },
+      }),
+      prisma.post.count({
+        where: { published: true },
+      }),
+    ])
+
+    return {
+      posts,
+      total,
+      pages: Math.ceil(total / limit),
+      currentPage: page,
+    }
   } catch (error) {
     console.error("Get posts error:", error)
-    return []
+    return {
+      posts: [],
+      total: 0,
+      pages: 0,
+      currentPage: 1,
+    }
   }
 }
 

@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Blog",
-  description: "A full-stack blog application",
+  title: "BlogSpace - Share Your Stories",
+  description: "A modern full-stack blog platform for sharing insights, stories, and knowledge with the world.",
 };
 
 export default function RootLayout({ children }) {

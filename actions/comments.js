@@ -4,7 +4,7 @@ import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
 
-export async function addComment(prevState, slug, formData) {
+export async function addComment(slug, formData) {
   const session = await auth()
 
   if (!session?.user) {
@@ -41,7 +41,7 @@ export async function addComment(prevState, slug, formData) {
   }
 }
 
-export async function deleteComment(prevState, formData) {
+export async function deleteComment(formData) {
   const session = await auth()
 
   if (!session?.user) {
