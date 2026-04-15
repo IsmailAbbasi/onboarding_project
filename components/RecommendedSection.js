@@ -7,7 +7,7 @@ export default function RecommendedSection({
   isLoggedIn = false,
 }) {
   return (
-    <aside className="sticky top-20 hidden xl:block w-80 space-y-8 self-start pl-8 border-l border-gray-100">
+    <aside className="sticky top-20 hidden lg:block w-80 space-y-8 self-start pl-8 border-l border-gray-100">
       {/* Staff Picks */}
       {staffPicks.length > 0 && (
         <div>

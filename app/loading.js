@@ -44,7 +44,7 @@ export default function Loading() {
           </div>
 
           {/* Right sidebar skeleton */}
-          <div className="hidden xl:block w-80 space-y-6 pl-8 border-l border-gray-100">
+          <div className="hidden lg:block w-80 space-y-6 pl-8 border-l border-gray-100">
             <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
             {[1, 2, 3].map((i) => (
               <div key={i} className="space-y-2 animate-pulse">
